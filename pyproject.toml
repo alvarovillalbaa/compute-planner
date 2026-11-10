@@ -4,8 +4,8 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "compute-planner"
-version = "0.1.0"
-description = "Cost, routing, and scheduling primitives without provider execution."
+version = "0.2.0"
+description = "Routing and scheduling primitives without economics or provider execution."
 requires-python = ">=3.11"
 license = {text = "MIT"}
 dependencies = []

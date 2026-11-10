@@ -2,9 +2,9 @@
 
 Last updated: 2026-11-10
 
-Estimate training compute, rank jobs, and choose candidate providers without executing them.
-
-**Status: implemented.** A standard-library Python 3.11+ library and CLI are present. Wheel construction and independent installation passed on Python 3.14.7; see the [installed acceptance receipt](docs/results/2026/11-10/installed-package.json).
+Rank jobs and choose candidate providers without executing them.
+Version **0.2.0** contains standard-library Python 3.11+ routing and scheduling
+primitives. Economics is an independently usable component.
 
 ## Independent use
 
@@ -12,24 +12,45 @@ From this repository:
 
 ```sh
 python3 -m pip install .
-python3 -m compute_planner.cli estimate-cost examples/estimate.json
+compute-planner route pretrain_smoke
+python3 -m compute_planner.cli route pretrain_smoke
 python3 examples/quickstart.py
 ```
 
-No sibling checkout, GPU, account, database, or network service is needed for these examples.
+No sibling checkout, compute-economics installation, GPU, account, database, or
+network service is needed for these examples.
 
 ## Ownership
 
-The 6NT language-model estimate, ordered provider recommendations, FIFO, cheapest-first, and risk-adjusted value ordering.
+This package owns ordered provider recommendations, FIFO, cheapest-first, and
+risk-adjusted value ordering. `Job.expected_cost_usd` is an estimate supplied
+by the caller; it can come from compute-economics, another estimator, or an
+explicit experimental assumption.
 
-Outside this component: Cloud allocation, provider credentials, live pricing, training, or budget enforcement.
+Cloud allocation, provider credentials, live pricing, workload cost models,
+training, and budget enforcement are outside this component. Provider rankings
+are historical defaults, not current availability or prices.
+`examples/routing.json` is checked against the library defaults.
 
-## Compose
+## Economics API change in 0.2.0
 
-Use independently, or register a pinned version in [Lab](https://github.com/alvarovillalbaa/lab). A dependency on Lab is never required. Libraries connect through declared dependencies or explicit artifact/job interfaces.
+The costing implementation, cost example, native cost tests, and cost-ledger
+template moved to [compute-economics](https://github.com/alvarovillalbaa/compute-economics).
+Import `CostEstimate`, `estimate_from_spec`, and `format_estimate` from
+`compute_economics`. Use `compute-economics estimate-cost SPEC.json`.
+The old compute-planner costing module, exports, and estimate-cost command
+are removed; no forwarding copy or mandatory economics dependency remains.
 
-[Specification and next work](docs/specs/README.md) · [Extraction provenance](docs/sources/lab-provenance.json)
+## Compose and proof
 
-MIT applies to the code and authored documentation in this repository. External datasets, model weights, provider services, and third-party projects retain their own terms.
+Use independently, or register a pinned version in [Lab](https://github.com/alvarovillalbaa/lab).
+A dependency on Lab is never required. Connect estimates, jobs, and execution
+through explicit values and interfaces.
 
-`estimate_from_spec` supports token-based language-model GPU training only. CPU/MPS, serving workloads, and non-finite resource inputs are rejected. Estimates are not measured billing and do not enforce the supplied budget. Provider rankings are historical defaults, not current availability or pricing. `examples/routing.json` is checked against the library defaults.
+[Specification](docs/specs/README.md) ·
+[Initial Lab provenance](docs/sources/lab-provenance.json) ·
+[Economics migration and source checks](docs/results/2026/11-10/economics-extraction.json)
+
+The earlier installed receipt belongs to 0.1.0. Source checks for this 0.2.0
+change do not establish fresh-install or wheel acceptance. Historical receipts
+and blueprints remain unchanged. MIT terms and third-party input terms apply.
