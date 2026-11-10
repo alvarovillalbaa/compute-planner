@@ -1,0 +1,57 @@
+{
+  "schema_version": 1,
+  "source_repository": "alvarovillalbaa/lab",
+  "source_revision": "ba67e510bab2703b1042993744ce099490221c1f",
+  "original_main": "36bb3839f1bc166fa54824fd8457b28ca5189dae",
+  "history_policy": "Original history remains in Lab; extraction commit preserves original bytes; subsequent commits adapt interfaces.",
+  "sources": [
+    {
+      "path": "docs/specs/steps.md",
+      "section": 2,
+      "start_line": 48,
+      "end_line": 75
+    },
+    {
+      "path": "docs/specs/steps.md",
+      "section": 15,
+      "start_line": 809,
+      "end_line": 885
+    },
+    {
+      "path": "docs/IMPLEMENTATION_BACKLOG.md",
+      "sections": [
+        "Scheduler"
+      ]
+    },
+    {
+      "path": "src/lab/costing.py",
+      "destination": "src/compute_planner/costing.py",
+      "source_sha256": "c9e73a328c75c41906a7efecbb340f96dc49ddd78eee52af7678a972156b53b2"
+    },
+    {
+      "path": "src/lab/routing.py",
+      "destination": "src/compute_planner/routing.py",
+      "source_sha256": "cdb5654105dd2731343abb46d81940031edd499a208c43fb4af493a2546fef29"
+    },
+    {
+      "path": "src/lab/scheduler.py",
+      "destination": "src/compute_planner/scheduler.py",
+      "source_sha256": "ced993a23b24eddf339538a63780055a270a14d0bfc1f50441781ae2e17f9e7e"
+    },
+    {
+      "path": "tests/test_costing.py",
+      "destination": "tests/test_costing.py",
+      "source_sha256": "b219307a6dd7fb3c7b4225144cdf5a95c02933867a8125ee1d8851fd941e8bbe"
+    },
+    {
+      "path": "reports/templates/cost_ledger.csv",
+      "destination": "templates/cost_ledger.csv",
+      "source_sha256": "313ba7a0c3af5116a1b88a9be174dcc49ff1565ed20b0d19f227aa38dc33cadb"
+    },
+    {
+      "path": "configs/providers/routing.json",
+      "destination": "examples/routing.json",
+      "source_sha256": "db03d30ee8f91faef19ca5e424f8723dfc7871cbce5026517f75c9ce9242e8a6"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "schema_version": 1,
+  "date": "2026-11-10",
+  "repository": "alvarovillalbaa/compute-planner",
+  "implementation_status": "implemented",
+  "source_revision": "ba67e510bab2703b1042993744ce099490221c1f",
+  "checks": {
+    "source_tests": {
+      "exit_code": 0,
+      "output": "test_estimate_from_spec_has_positive_flops (test_costing.CostingTests.test_estimate_from_spec_has_positive_flops) ... ok\ntest_unsupported_and_nonfinite_inputs_fail (test_costing.CostingTests.test_unsupported_and_nonfinite_inputs_fail) ... ok\ntest_policy_order_and_fifo_input (test_scheduling.SchedulingTests.test_policy_order_and_fifo_input) ... ok\ntest_route_example_matches_defaults (test_scheduling.SchedulingTests.test_route_example_matches_defaults) ... ok\n\n----------------------------------------------------------------------\nRan 4 tests in 0.001s\n\nOK\n",
+      "method": "Existing interpreter, explicit single source root, working directory outside repository; no installation"
+    },
+    "staged_whitespace": "passed"
+  },
+  "limits": [
+    "Fresh install and wheel build not run: Storage Guard reports 11.9 GiB free versus 34 GiB required.",
+    "No GPU, provider, model download, paid service, production deployment, or scientific performance claim."
+  ]
+}

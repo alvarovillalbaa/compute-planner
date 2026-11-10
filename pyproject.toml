@@ -1,0 +1,20 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "compute-planner"
+version = "0.1.0"
+description = "Cost, routing, and scheduling primitives without provider execution."
+requires-python = ">=3.11"
+license = {text = "MIT"}
+dependencies = []
+
+[project.urls]
+Repository = "https://github.com/alvarovillalbaa/compute-planner"
+
+[project.scripts]
+compute-planner = "compute_planner.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]

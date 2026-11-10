@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
+import math
 from typing import Any
 
 
@@ -42,6 +43,30 @@ class CostEstimate:
 
 
 def estimate_from_spec(spec: dict[str, Any]) -> CostEstimate:
+    if not isinstance(spec, dict):
+        raise ValueError("spec must be an object")
+    if spec.get("stage") not in (None, "pretrain", "midtrain", "sft", "dpo", "grpo", "distill"):
+        raise ValueError("the estimator supports token-based language-model training only")
+    if any(not isinstance(spec.get(key, {}), dict) for key in ("model", "resources", "budget", "training")):
+        raise ValueError("model, resources, budget, and training must be objects")
+    resources = spec.get("resources", {})
+    if resources.get("device") in ("cpu", "mps") or resources.get("gpus", 1) == 0:
+        raise ValueError("CPU/MPS workloads are unsupported by the GPU training estimator")
+    for key, value in (("parameters", spec.get("model", {}).get("parameters")),
+                       ("tokens_target", spec.get("training", {}).get("tokens_target")),
+                       ("gpus", resources.get("gpus", 1))):
+        if type(value) is not int or value <= 0:
+            raise ValueError(f"{key} must be a positive integer")
+    for key, value, allow_zero in (
+        ("gpu_tflops", resources.get("gpu_tflops", 82.0), False),
+        ("gpu_hourly_usd", resources.get("gpu_hourly_usd", 0.0), True),
+        ("utilization", resources.get("utilization", 0.35), False),
+        ("overhead_multiplier", spec.get("budget", {}).get("overhead_multiplier", 2.0), False),
+    ):
+        if type(value) not in (int, float) or not math.isfinite(value) or value < 0 or (not allow_zero and value == 0):
+            raise ValueError(f"{key} must be finite and {'non-negative' if allow_zero else 'positive'}")
+    if resources.get("utilization", 0.35) > 1:
+        raise ValueError("utilization must not exceed 1")
     model = spec.get("model", {})
     resources = spec.get("resources", {})
     budget = spec.get("budget", {})
@@ -57,7 +82,6 @@ def estimate_from_spec(spec: dict[str, Any]) -> CostEstimate:
         overhead_multiplier=float(budget.get("overhead_multiplier", 2.0)),
     )
 
-
 def format_estimate(estimate: CostEstimate) -> str:
     return "\n".join(
         [
@@ -69,4 +93,3 @@ def format_estimate(estimate: CostEstimate) -> str:
             f"realistic_cost_usd: {estimate.realistic_cost_usd:.2f}",
         ]
     )
-

@@ -30,4 +30,3 @@ def value_first(jobs: list[Job]) -> list[Job]:
 
 def fifo(jobs: list[Job]) -> list[Job]:
     return list(jobs)
-

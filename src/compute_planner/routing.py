@@ -23,4 +23,3 @@ def providers_for(job_type: str) -> list[str]:
     except KeyError as exc:
         known = ", ".join(sorted(ROUTES))
         raise KeyError(f"unknown job type {job_type!r}; known job types: {known}") from exc
-
