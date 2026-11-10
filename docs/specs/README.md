@@ -2,25 +2,31 @@
 
 Last updated: 2026-11-10
 
-Status: implemented. The README describes the implemented primitive scope; the inherited blueprint includes future work.
+Version 0.2.0 owns ordered provider recommendations, FIFO, cheapest-first, and
+risk-adjusted value ordering. It does not require an economics package.
 
-## Responsibility
+## Public interfaces
 
-The 6NT language-model estimate, ordered provider recommendations, FIFO, cheapest-first, and risk-adjusted value ordering.
+- `providers_for(job_type)`: ordered historical provider recommendations.
+- `Job`: caller-supplied identity, type, expected value, expected cost, risk, and optional deadline.
+- `fifo`, `cheapest_first`, `value_first`, `value_per_dollar`: pure ordering/scoring helpers.
+- `compute-planner route JOB_TYPE`: route recommendations only.
 
-## First next work
+Cost estimates and their template are owned by
+[compute-economics](https://github.com/alvarovillalbaa/compute-economics).
+The former costing imports and estimate-cost CLI were removed in 0.2.0.
+A caller passes expected costs through values; no shared implementation or
+runtime dependency is necessary.
 
-- [ ] Keep estimates labelled as estimates with caller-supplied prices.
-- [ ] Define planning-to-runner handoff against a concrete execution consumer.
+## Next work
 
-## Interfaces and composition
+- Define a planning-to-runner handoff against a concrete execution consumer.
+- Compare policies using the same frozen workload and cost assumptions.
+- Keep provider capability and current availability explicit rather than inferred from defaults.
 
-Use the public package API or CLI documented in the README. There is no import from Lab and no required evaluation service.
+[Inherited blueprint](blueprint.md) and [inherited backlog](backlog.md) preserve
+the original broader design. Their costing material is historical; current
+economics ownership is separate. Existing dated receipts are not rewritten.
 
-[Inherited blueprint](blueprint.md) preserves the relevant original design sections. Provider claims, dates, estimates, and unimplemented features there are historical requirements, not new measurements.
-
-[Inherited backlog](backlog.md) records the original planning status; use the implementation status above for the current boundary.
-
-## Acceptance
-
-Source checks are available with an explicit source root; installation and wheel checks require the storage preflight and are tracked as separate proof.
+Source verification of 0.2.0 is recorded in the economics-extraction receipt.
+Earlier 0.1.0 installed-package proof does not establish installation of 0.2.0.
