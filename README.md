@@ -1,5 +1,9 @@
 # compute-planner
 
+<!-- project-family:start -->
+> **Project family:** [AI Research Lab](https://github.com/alvarovillalbaa#ai-research-lab) · **Area:** Compute planning
+<!-- project-family:end -->
+
 Last updated: 2026-11-10
 
 Estimate training compute, rank jobs, and choose candidate providers without executing them.
